@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "356329679594",
+    "project_id": "blur-web-app",
+    "storage_bucket": "blur-web-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:356329679594:android:fd369afd85209bfe624593",
+        "android_client_info": {
+          "package_name": "com.company.blur"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "356329679594-0omndgbeid7nigp9r59n4vhcu875dvmi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCX9W30wAf8IXhS78RI0wQiRbHFSjcNzDA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "356329679594-0omndgbeid7nigp9r59n4vhcu875dvmi.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "356329679594-n38o8fdpervlvtgh5qgpv9fmv09k3aep.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.blurWebApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:356329679594:android:06d1047e576ae831624593",
+        "android_client_info": {
+          "package_name": "com.example.blurwebapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "356329679594-c7nt3pq8f3mu5uvon0v23boeblklo1ja.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.blurwebapp",
+            "certificate_hash": "3e59912767d02644c46022c406df54fe5e5b393d"
+          }
+        },
+        {
+          "client_id": "356329679594-0omndgbeid7nigp9r59n4vhcu875dvmi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCX9W30wAf8IXhS78RI0wQiRbHFSjcNzDA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "356329679594-0omndgbeid7nigp9r59n4vhcu875dvmi.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "356329679594-n38o8fdpervlvtgh5qgpv9fmv09k3aep.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.blurWebApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
