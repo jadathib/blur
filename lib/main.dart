@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'login_screen.dart'; // Import login screen
+import 'screens/login_screen.dart'; // Import login screen
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
