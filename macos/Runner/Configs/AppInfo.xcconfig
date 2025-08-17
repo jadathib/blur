@@ -4,13 +4,11 @@
 // future. If not, the values below would default to using the project name when this becomes a
 // 'flutter create' template.
 
-MACOSX_DEPLOYMENT_TARGET = 10.15
-
 // The application's name. By default this is also the title of the Flutter window.
 PRODUCT_NAME = blur
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.blur
+PRODUCT_BUNDLE_IDENTIFIER = com.jadathibodeaux.blur
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2025 com.example. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2025 com.jadathibodeaux. All rights reserved.
