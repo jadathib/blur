@@ -40,4 +40,5 @@ flutter:
 flutter_launcher_icons:
   android: true
   ios: true
+  macos: true
   image_path: "assets/icon/Blur_Logo_1024x1024.png"
