@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -5,34 +7,67 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'home_screen.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  StreamSubscription? _authEventsSub;
+
+  @override
+  void initState() {
+    super.initState();
+    // 1) Initialize Google Sign-In (required in v7)
+    unawaited(GoogleSignIn.instance
+        .initialize(
+      // Use your iOS/macOS OAuth client ID:
+      clientId: 'YOUR_IOS_OR_MACOS_CLIENT_ID.apps.googleusercontent.com',
+      // If you exchange server auth codes on your backend, also set:
+      // serverClientId: 'YOUR_WEB_CLIENT_ID.apps.googleusercontent.com',
+    )
+        .then((_) {
+      // Optional: try lightweight auth on app start.
+      GoogleSignIn.instance.attemptLightweightAuthentication();
+    }));
+
+    // (Optional) Listen for auth events to update UI
+    _authEventsSub = GoogleSignIn.instance.authenticationEvents.listen((_) {});
+  }
+
+  @override
+  void dispose() {
+    _authEventsSub?.cancel();
+    super.dispose();
+  }
 
   Future<void> _signInWithGoogle(BuildContext context) async {
     try {
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      if (googleUser == null) return; // User canceled the sign-in
+      // 2) Trigger interactive sign-in (v7)
+      final account = await GoogleSignIn.instance.authenticate();
 
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      // 3) Get the idToken (v7 exposes only idToken)
+      final idToken = (await account.authentication).idToken;
+      if (idToken == null) {
+        throw Exception('No idToken from Google Sign-In');
+      }
 
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
+      // 4) Sign in to Firebase with idToken
+      final credential = GoogleAuthProvider.credential(idToken: idToken);
       await _auth.signInWithCredential(credential);
 
-      if (context.mounted) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
-        );
-      }
+      if (!mounted) return;
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const HomeScreen()),
+      );
+    } on GoogleSignInException catch (e) {
+      debugPrint('GoogleSignInException: ${e.code} - ${e.message}');
     } catch (e) {
-      print("Google Sign-In Error: $e");
+      debugPrint('Google Sign-In Error: $e');
     }
   }
 
@@ -118,4 +153,8 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+extension on GoogleSignInException {
+  get message => null;
 }
