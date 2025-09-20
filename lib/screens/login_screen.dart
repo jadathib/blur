@@ -21,22 +21,18 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    // 1) Initialize Google Sign-In (required in v7)
-    unawaited(GoogleSignIn.instance
-        .initialize(
-      // Use your iOS/macOS OAuth client ID:
-      clientId: 'YOUR_IOS_OR_MACOS_CLIENT_ID.apps.googleusercontent.com',
-      // If you exchange server auth codes on your backend, also set:
-      // serverClientId: 'YOUR_WEB_CLIENT_ID.apps.googleusercontent.com',
-    )
-        .then((_) {
-      // Optional: try lightweight auth on app start.
-      GoogleSignIn.instance.attemptLightweightAuthentication();
-    }));
 
-    // (Optional) Listen for auth events to update UI
+    // iOS: do NOT pass clientId – it’s read from GoogleService-Info.plist.
+    unawaited(
+      GoogleSignIn.instance.initialize().then((_) {
+        // Optional: quick silent attempt
+        GoogleSignIn.instance.attemptLightweightAuthentication();
+      }),
+    );
+
     _authEventsSub = GoogleSignIn.instance.authenticationEvents.listen((_) {});
   }
+
 
   @override
   void dispose() {
@@ -65,9 +61,9 @@ class _LoginScreenState extends State<LoginScreen> {
         MaterialPageRoute(builder: (_) => const HomeScreen()),
       );
     } on GoogleSignInException catch (e) {
-      debugPrint('GoogleSignInException: ${e.code} - ${e.message}');
-    } catch (e) {
-      debugPrint('Google Sign-In Error: $e');
+      debugPrint('GoogleSignInException code=${e.code} message=${e.message}');
+    } catch (e, st) {
+      debugPrint('Google Sign-In Error: $e\n$st');
     }
   }
 
