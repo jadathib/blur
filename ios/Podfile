@@ -1,4 +1,4 @@
-platform :ios, '14.0'
+platform :ios, '15.0'
 
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
@@ -27,7 +27,7 @@ flutter_ios_podfile_setup
 
 target 'Runner' do
   use_frameworks!
-  use_modular_headers! # ← add this for newer Firebase and sign-in plugins
+  use_modular_headers!
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 
@@ -38,10 +38,12 @@ end
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
+    # Keep Flutter’s build settings for each pod target
     flutter_additional_ios_build_settings(target)
 
-    # 🔧 Fix Swift compatibility errors for Firebase pods
+    # Make sure every pod builds with iOS 15 and a modern Swift toolchain
     target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
       config.build_settings['SWIFT_VERSION'] = '5.9'
     end
   end
